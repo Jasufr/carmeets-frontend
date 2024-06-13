@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.106.0",
     "@react-three/fiber": "^8.16.8",
+    "@types/cannon": "^0.1.12",
+    "@types/three": "^0.165.0",
+    "cannon": "^0.6.2",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
