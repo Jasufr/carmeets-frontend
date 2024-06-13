@@ -2,8 +2,10 @@
 
 import { Environment, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Micro_5 } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three';
+import gsap from 'gsap';
 
 const Car = ({ lightsOn, wheelsOn }: { lightsOn: boolean, wheelsOn: boolean }) => {
   const group = useRef<THREE.Group>(null);
@@ -67,6 +69,54 @@ const Car = ({ lightsOn, wheelsOn }: { lightsOn: boolean, wheelsOn: boolean }) =
     }
   }, [actions, wheelsOn]);
 
+  // const position = [0, 0, 0];
+  // const rotation = [0, 2,2, 0];
+  // const scale = [1.3, 1.3, 1.3];
+
+  // let position = new THREE.Vector3(0, 0, 0);
+  // let rotation = new THREE.Euler(0, 2.2, 0); // Make sure the rotation is correctly defined
+  // let scale = new THREE.Vector3(1.3, 1.3, 1.3);
+
+  // useEffect(() => {
+  //   if (lightsOn) {
+  //     group.position.current = new THREE.Vector3(0, 5, 0);
+  //   }
+  // }, [lightsOn])
+
+  useEffect(() => {
+    if (group.current) {
+      const newPosition = lightsOn ? [0, 1, 0] : [0, 0, 0]; // Change to desired positions
+      const newRotation = lightsOn ? [0, Math.PI * 1.2, 0] : [0, 2.2, 0]; // Change to desired rotations
+      const newScale = lightsOn ? [2, 2, 2] : [1.3, 1.3, 1.3]; // Change to desired scales
+
+      // Smoothly change position
+      gsap.to(group.current.position, {
+        x: newPosition[0],
+        y: newPosition[1],
+        z: newPosition[2],
+        duration: 1,
+        ease: "power2.inOut"
+      });
+
+      // Smoothly change rotation
+      gsap.to(group.current.rotation, {
+        x: newRotation[0],
+        y: newRotation[1],
+        z: newRotation[2],
+        duration: 1,
+        ease: "power2.inOut"
+      });
+
+      // Smoothly change scale
+      gsap.to(group.current.scale, {
+        x: newScale[0],
+        y: newScale[1],
+        z: newScale[2],
+        duration: 1,
+        ease: "power2.inOut"
+      });
+    }
+  },[lightsOn]);
 
   return (
     <group ref={group} dispose={null} position={[0, 0, 0]} rotation={[0, 2.2, 0]} scale={[1.3, 1.3, 1.3]}>
