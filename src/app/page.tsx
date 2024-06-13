@@ -1,5 +1,9 @@
 import Image from "next/image";
 import { Meeting } from "./types";
+// import CarScene from "./components/CarScene";
+import dynamic from 'next/dynamic';
+
+const CarScene = dynamic(() => import('./components/CarScene'), { ssr: false });
 
 async function fetchMeetings(): Promise<Meeting[]> {
   const res = await fetch("http://localhost:3000/api/v1/meetings", { next: { revalidate: 60 } });
@@ -14,8 +18,8 @@ const Home: React.FC = async () => {
 
   return (
     <>
-      <div>
-        <h1>Meetings</h1>
+      <div className="h-[100vh]">
+        {/* <h1>Meetings</h1>
         <ul>
           {meetings.map((meeting) => (
             <li key={meeting.id}>
@@ -24,7 +28,8 @@ const Home: React.FC = async () => {
               <p>{meeting.address}</p>
             </li>
           ))}
-        </ul>
+        </ul> */}
+        <CarScene />
       </div>
     </>
   )
