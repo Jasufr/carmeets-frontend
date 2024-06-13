@@ -5,7 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three';
 
-const Car = ({ animOn }: { animOn: boolean }) => {
+const Car = ({ lightsOn, wheelsOn }: { lightsOn: boolean, wheelsOn: boolean }) => {
   const group = useRef<THREE.Group>(null);
   const { scene, nodes, materials, animations } = useGLTF('./model/test.glb') as any;
   const { actions } = useAnimations(animations, group);
@@ -21,15 +21,17 @@ const Car = ({ animOn }: { animOn: boolean }) => {
   useEffect(() => {
     if (actions["HeadlightsAction"]) {
       const action = actions["HeadlightsAction"];
+      // console.log(actions);
 
-      if (animOn) {
+
+      if (lightsOn) {
         // Play the animation forward
         setIsPlayingBackward(false);
         action.reset().setLoop(THREE.LoopOnce, 1).play();
         action.timeScale = 4;
         action.clampWhenFinished = true;
       } else {
-        // If animation is complete and animOn is false, play the animation backward
+        // If animation is complete and lightsOn is false, play the animation backward
         if (!action.isRunning() && !isPlayingBackward) {
           setIsPlayingBackward(true);
           action.paused = false;
@@ -39,7 +41,32 @@ const Car = ({ animOn }: { animOn: boolean }) => {
         }
       }
     }
-  }, [actions, animOn]);
+
+    // if (actions["WheelBackLeftAction"] && actions["WheelBackRightAction"] && actions["WheelFrontLeftAction"] && actions["WheelFrontRightAction"]) {
+    //   const wheelActions = [actions["WheelBackLeftAction"], actions["WheelBackRightAction"], actions["WheelFrontLeftAction"], actions["WheelFrontRightAction"]];
+
+    //   if (wheelsOn) {
+    //     wheelActions.forEach(action => action.play());
+    //     wheelActions.forEach(action => action.timeScale = 10);
+    //   } else {
+    //     wheelActions.forEach(action => action.stop());
+    //   }
+    // }
+  }, [actions, lightsOn]);
+
+  useEffect(() => {
+    if (actions["WheelBackLeftAction"] && actions["WheelBackRightAction"] && actions["WheelFrontLeftAction"] && actions["WheelFrontRightAction"]) {
+      const wheelActions = [actions["WheelBackLeftAction"], actions["WheelBackRightAction"], actions["WheelFrontLeftAction"], actions["WheelFrontRightAction"]];
+
+      if (wheelsOn) {
+        wheelActions.forEach(action => action.play());
+        wheelActions.forEach(action => action.timeScale = 10);
+      } else {
+        wheelActions.forEach(action => action.stop());
+      }
+    }
+  }, [actions, wheelsOn]);
+
 
   return (
     <group ref={group} dispose={null} position={[0, 0, 0]} rotation={[0, 2.2, 0]} scale={[1.3, 1.3, 1.3]}>
@@ -50,12 +77,12 @@ const Car = ({ animOn }: { animOn: boolean }) => {
   );
 };
 
-const CarScene = ({ animOn }: { animOn: boolean }) => {
+const CarScene = ({ lightsOn, wheelsOn }: { lightsOn: boolean, wheelsOn: boolean }) => {
   return (
     <Canvas camera={{ position: [0, 2, 5] }}>
       {/* <ambientLight intensity={0.5} /> */}
       <Environment preset="sunset" />
-      <Car animOn={animOn} />
+      <Car lightsOn={lightsOn} wheelsOn={wheelsOn} />
       {/* <OrbitControls /> */}
     </Canvas>
   );

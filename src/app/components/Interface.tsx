@@ -5,11 +5,13 @@ import CarScene from './CarScene';
 
 const Interface = () => {
 
-  const [animOn, setAnimOn] = useState(false);
+  const [lightsOn, setLightsOn] = useState(false);
+  const [wheelsOn, setWheelsOn] = useState(false);
   return (
     <>
-      <button onClick={() => setAnimOn(!animOn)} className="bg-red-500 z-50">Hello</button>
-      <CarScene animOn={animOn} />
+      <button onClick={() => setLightsOn(!lightsOn)} className="bg-red-500 z-50">Lights</button>
+      <button onClick={() => setWheelsOn(!wheelsOn)} className="bg-blue-500 z-50">Wheels</button>
+      <CarScene lightsOn={lightsOn} wheelsOn={wheelsOn} />
 
     </>
   );
