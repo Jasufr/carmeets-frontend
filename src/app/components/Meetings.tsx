@@ -18,13 +18,13 @@ const Meetings = ({ meeting }: { meeting: Meeting }) => {
       <mesh>
         <planeGeometry args={[3.3, 3]} />
         <meshBasicMaterial color="black" transparent opacity={0.4} />
-        <Text maxWidth={2}
+        <Text maxWidth={3}
         anchorX={"left"}
         anchorY={"top"}
         fontSize={0.3}
         position={[-1.5, 1.4, 0.1]}>{meeting.name.toUpperCase()}</Text>
         {/* {meeting.picture && (<Image url={meeting.picture} alt={meeting.name} />)} */}
-        <Text maxWidth={2}
+        <Text maxWidth={3}
         anchorX="left"
         anchorY="top"
         fontSize={0.2}
