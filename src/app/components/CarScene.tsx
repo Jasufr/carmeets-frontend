@@ -225,10 +225,14 @@ const CarScene = ({ lightsOn, wheelsOn, meetings }: { lightsOn: boolean, wheelsO
         attenuation={5}
         anglePower={5} // Diffuse-cone anglePower (default: 5)
       /> */}
+      <group position={[-3, 2, -5]} rotation={[0, 0.35, 0]}>
+      {meetings.map((meeting, index) => (
+        <group key={'meeting_' + index} position={[index * 3.5, 0, -3]}>
 
-      {meetings.map((meeting) => (
-        <Meetings key={meeting.id} meeting={meeting} />
+          <Meetings key={meeting.id} meeting={meeting} />
+        </group>
       ))}
+      </group>
 
     </Canvas>
   );

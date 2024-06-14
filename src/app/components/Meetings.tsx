@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from 'three';
 import { Meeting } from "../types";
@@ -16,10 +16,20 @@ const Meetings = ({ meeting }: { meeting: Meeting }) => {
   return (
     <group>
       <mesh>
-        <planeGeometry args={[2.2, 2]} />
+        <planeGeometry args={[3.3, 3]} />
         <meshBasicMaterial color="black" transparent opacity={0.4} />
-        <Text>{meeting.name}</Text>
-        {/* {meeting.picture && (<Image url={meeting.picture}  />)} */}
+        <Text maxWidth={2}
+        anchorX={"left"}
+        anchorY={"top"}
+        fontSize={0.3}
+        position={[-1.5, 1.4, 0.1]}>{meeting.name.toUpperCase()}</Text>
+        {/* {meeting.picture && (<Image url={meeting.picture} alt={meeting.name} />)} */}
+        <Text maxWidth={2}
+        anchorX="left"
+        anchorY="top"
+        fontSize={0.2}
+        position={[-1.5, -0.5, 0.1]}>{meeting.description}</Text>
+
       </mesh>
     </group>
   );
