@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import CarScene from './CarScene';
 import { Meeting } from "../types";
+import Menu from './Menu';
 
 const Interface = () => {
 
@@ -29,10 +30,12 @@ const Interface = () => {
 
   return (
     <>
-      <button onClick={() => setLightsOn(!lightsOn)} className="bg-red-500 z-50">Lights</button>
-      <button onClick={() => setWheelsOn(!wheelsOn)} className="bg-blue-500 z-50">Wheels</button>
+      <div className='absolute z-50 m-5'>
+      <button onClick={() => setLightsOn(!lightsOn)} className="bg-red-500 p-2 me-5">Lights</button>
+      <button onClick={() => setWheelsOn(!wheelsOn)} className="bg-blue-500 p-2">Wheels</button>
+      </div>
       <CarScene lightsOn={lightsOn} wheelsOn={wheelsOn} meetings={meetings} />
-
+      <Menu />
     </>
   );
 }
